@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Онлайн-аптека</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f6f7;
+}
+
+header {
+    background: #27ae60;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+}
+
+input {
+    padding: 10px;
+    width: 200px;
+}
+
+button {
+    padding: 10px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.catalog {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.chat {
+    margin-top: 30px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💊 Онлайн-аптека</h1>
+</header>
+
+<div class="container">
+
+<h2>Поиск лекарства</h2>
+<input id="search" placeholder="Введите название..." onkeyup="search()">
+
+<div class="catalog" id="catalog">
+
+<div class="card">Парацетамол<br>500 тг</div>
+<div class="card">Ибупрофен<br>700 тг</div>
+<div class="card">Витамин C<br>600 тг</div>
+<div class="card">Сироп от кашля<br>1200 тг</div>
+
+</div>
+
+<div class="chat">
+<h2>🤖 ИИ-консультант</h2>
+
+<input id="input" placeholder="например: температура, кашель">
+<button onclick="chat()">Спросить</button>
+
+<p id="output"></p>
+</div>
+
+</div>
+
+<script>
+
+// поиск
+function search(){
+let input = document.getElementById("search").value.toLowerCase();
+let cards = document.querySelectorAll(".card");
+
+cards.forEach(card => {
+if(card.innerText.toLowerCase().includes(input)){
+card.style.display = "block";
+} else {
+card.style.display = "none";
+}
+});
+}
+
+// чат-бот
+function chat(){
+let text = document.getElementById("input").value.toLowerCase();
+let answer = "Обратитесь к врачу";
+
+if(text.includes("температура")){
+answer = "Советуем: Парацетамол или Ибупрофен";
+}
+else if(text.includes("кашель")){
+answer = "Рекомендуем сироп от кашля";
+}
+else if(text.includes("иммунитет")){
+answer = "Витамин C будет полезен";
+}
+
+document.getElementById("output").innerText = answer;
+}
+
+</script>
+
+</body>
+</html>
