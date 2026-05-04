@@ -2,35 +2,74 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Онлайн-аптека с ИИ</title>
+<title>Городской сервис</title>
 
 <style>
-body {font-family: Arial; margin:0; background:#f3f6f7;}
-header {background:#27ae60; color:white; text-align:center; padding:15px;}
-.container {padding:20px;}
-input {padding:10px; width:320px;}
-button {padding:10px; background:#27ae60; color:white; border:none; cursor:pointer;}
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f2f6f9;
+}
 
-.catalog {
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:20px;
+header {
+    background: #2980b9;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* верхние вкладки */
+.tabs {
+    display: flex;
+    background: #1f6fa5;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    background: #1f6fa5;
+    color: white;
+}
+
+.tabs button:hover {
+    background: #155a86;
+}
+
+/* секции */
+.container {
+    padding: 20px;
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+/* карточки услуг */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .card {
-background:white;
-padding:10px;
-width:180px;
-border-radius:10px;
-box-shadow:0 0 5px #ccc;
+    background: white;
+    padding: 15px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #ccc;
+    cursor: pointer;
 }
 
-.chat {
-margin-top:30px;
-background:white;
-padding:15px;
-border-radius:10px;
+/* окно информации */
+.infoBox {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
 }
 </style>
 </head>
@@ -38,163 +77,137 @@ border-radius:10px;
 <body>
 
 <header>
-<h1>💊 Онлайн-аптека с ИИ-консультантом</h1>
+<h1>🏙 Городской сервис</h1>
 </header>
 
-<div class="container">
+<!-- ВКЛАДКИ -->
+<div class="tabs">
+<button onclick="openTab('home')">Главная</button>
+<button onclick="openTab('services')">Услуги</button>
+<button onclick="openTab('ai')">ИИ-ассистент</button>
+</div>
 
-<h2>Поиск лекарства</h2>
-<input id="search" placeholder="Введите название..." onkeyup="search()">
+<!-- ГЛАВНАЯ -->
+<div id="home" class="container active">
+<h2>Добро пожаловать</h2>
+<p>Городской портал для жителей</p>
+</div>
 
-<div class="catalog">
+<!-- УСЛУГИ -->
+<div id="services" class="container">
 
-<!-- 💊 ЛЕКАРСТВА (~90+) -->
-<div class="card">Парацетамол</div>
-<div class="card">Ибупрофен</div>
-<div class="card">Нурофен</div>
-<div class="card">Анальгин</div>
-<div class="card">Кетанов</div>
-<div class="card">Кеторол</div>
-<div class="card">Цитрамон</div>
-<div class="card">Но-шпа</div>
-<div class="card">Спазмалгон</div>
-<div class="card">Смекта</div>
-<div class="card">Имодиум</div>
-<div class="card">Регидрон</div>
-<div class="card">Мезим</div>
-<div class="card">Фестал</div>
-<div class="card">Омепразол</div>
-<div class="card">Ранитидин</div>
-<div class="card">Алмагель</div>
-<div class="card">Лоперамид</div>
-<div class="card">Супрастин</div>
-<div class="card">Лоратадин</div>
-<div class="card">Зиртек</div>
-<div class="card">Тавегил</div>
-<div class="card">Фенистил</div>
-<div class="card">Називин</div>
-<div class="card">Отривин</div>
-<div class="card">Аквамарис</div>
-<div class="card">Терафлю</div>
-<div class="card">Колдрекс</div>
-<div class="card">Арбидол</div>
-<div class="card">Кагоцел</div>
-<div class="card">Ингавирин</div>
-<div class="card">Ремантадин</div>
-<div class="card">Амброксол</div>
-<div class="card">Бромгексин</div>
-<div class="card">Мукалтин</div>
-<div class="card">АЦЦ</div>
-<div class="card">Доктор МОМ</div>
-<div class="card">Гербион</div>
-<div class="card">Глицин</div>
-<div class="card">Афобазол</div>
-<div class="card">Новопассит</div>
-<div class="card">Персен</div>
-<div class="card">Магний B6</div>
-<div class="card">Эссенциале</div>
-<div class="card">Гептрал</div>
-<div class="card">Линекс</div>
-<div class="card">Хилак Форте</div>
-<div class="card">Бифиформ</div>
-<div class="card">Витамин C</div>
-<div class="card">Витамин D</div>
-<div class="card">Витамин B12</div>
-<div class="card">Сорбифер</div>
-<div class="card">Циннаризин</div>
-<div class="card">Мотилиум</div>
-<div class="card">Дюфалак</div>
-<div class="card">Диклофенак</div>
-<div class="card">Вольтарен</div>
+<h2>🏙 Услуги города</h2>
+
+<div class="grid">
+
+<div class="card" onclick="showInfo('jkh')">🏠 ЖКХ</div>
+<div class="card" onclick="showInfo('transport')">🚍 Транспорт</div>
+<div class="card" onclick="showInfo('docs')">📄 Документы</div>
+<div class="card" onclick="showInfo('hospital')">🏥 Поликлиники</div>
+<div class="card" onclick="showInfo('police')">🚓 Полиция</div>
+<div class="card" onclick="showInfo('water')">🚰 Вода</div>
+<div class="card" onclick="showInfo('light')">💡 Электричество</div>
+<div class="card" onclick="showInfo('job')">💼 Работа</div>
 
 </div>
 
-<div class="chat">
-<h2>🤖 ИИ-консультант</h2>
+<!-- окно информации -->
+<div id="info" class="infoBox"></div>
 
-<input id="input" placeholder="Например: болит живот, температура, стресс">
+</div>
+
+<!-- ИИ -->
+<div id="ai" class="container">
+
+<h2>🤖 ИИ-ассистент</h2>
+
+<input id="input" placeholder="например: нет воды, как оформить документы">
 <button onclick="chat()">Спросить</button>
 
 <p id="output"></p>
-</div>
 
 </div>
 
 <script>
 
-// 🔍 ПОИСК
-function search(){
-let input = document.getElementById("search").value.toLowerCase();
-let cards = document.querySelectorAll(".card");
-
-cards.forEach(card=>{
-card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
-});
+// вкладки
+function openTab(tab){
+document.querySelectorAll(".container").forEach(c=>c.classList.remove("active"));
+document.getElementById(tab).classList.add("active");
 }
 
-// ============================
-// 🧠 УМНЫЙ ИИ (~150 симптомов)
-// ============================
+// =====================
+// информация по услугам
+// =====================
+function showInfo(type){
+
+let box = document.getElementById("info");
+box.style.display = "block";
+
+let text = "";
+
+if(type === "jkh"){
+text = "🏠 ЖКХ: обслуживание домов, ремонт, заявки через 109 или управляющую компанию.";
+}
+else if(type === "transport"){
+text = "🚍 Транспорт: расписание автобусов через 2GIS или CTS.";
+}
+else if(type === "docs"){
+text = "📄 Документы: оформление в ЦОН или через eGov портал.";
+}
+else if(type === "hospital"){
+text = "🏥 Поликлиники: запись к врачу через eGov или регистратуру.";
+}
+else if(type === "police"){
+text = "🚓 Полиция: экстренный номер 102.";
+}
+else if(type === "water"){
+text = "🚰 Вода: при отключении звонить в водоканал или аварийную службу.";
+}
+else if(type === "light"){
+text = "💡 Электричество: проверка аварий на сайте электросетей.";
+}
+else if(type === "job"){
+text = "💼 Работа: вакансии доступны на enbek.kz";
+}
+
+box.innerText = text;
+}
+
+// =====================
+// ИИ ассистент
+// =====================
 function chat(){
 
 let text = document.getElementById("input").value.toLowerCase();
 let output = document.getElementById("output");
 
-output.innerText = "🧠 ИИ анализирует симптомы...";
+output.innerText = "🧠 ИИ анализирует...";
 
 setTimeout(()=>{
 
-const db = [
+let answer = "📌 Обратитесь в городской центр";
 
-{keys:["температура","жар","лихорадка","озноб","горячка","жар тела"], meds:"Парацетамол, Ибупрофен, Нурофен"},
-{keys:["голова","мигрень","головная боль","давит голову","пульсирует"], meds:"Цитрамон, Анальгин, Кетанов"},
-{keys:["живот","желудок","спазм","резь","боль в животе"], meds:"Но-шпа, Смекта, Мезим, Омепразол"},
-{keys:["понос","диарея","жидкий стул","расстройство"], meds:"Имодиум, Лоперамид, Регидрон"},
-{keys:["запор","тяжесть","нет стула"], meds:"Дюфалак, Линекс"},
-{keys:["кашель","сухой кашель","мокрота","горло першит"], meds:"Амброксол, Бромгексин, Мукалтин, АЦЦ"},
-{keys:["горло","ангина","боль в горле","глотать больно"], meds:"Лизобакт, Тантум Верде"},
-{keys:["насморк","нос","заложенность","чихание"], meds:"Називин, Аквамарис, Отривин"},
-{keys:["простуда","грипп","орви","инфекция"], meds:"Терафлю, Колдрекс, Арбидол, Кагоцел"},
-{keys:["аллергия","сыпь","зуд","отёк"], meds:"Супрастин, Лоратадин, Зиртек, Тавегил"},
-{keys:["зуб","зубная боль"], meds:"Кетанов, Кеторол, Анальгин"},
-{keys:["ухо","ушная боль"], meds:"Отипакс"},
-{keys:["давление","гипертония"], meds:"Эналаприл, Анаприлин"},
-{keys:["сердце","боль в груди"], meds:"Валидол, Корвалол"},
-{keys:["стресс","нервы","тревога","паника"], meds:"Глицин, Афобазол, Новопассит, Персен"},
-{keys:["усталость","слабость","нет сил"], meds:"Витамин C, Витамин D, Магний B6"},
-{keys:["сустав","нога болит","рука болит","спина"], meds:"Ибупрофен, Диклофенак, Вольтарен"},
-{keys:["глаза","усталость глаз"], meds:"Тауфон, Визин"},
-{keys:["головокружение","темнеет в глазах"], meds:"Циннаризин"},
-{keys:["тошнота","рвота","плохо"], meds:"Мотилиум"},
-{keys:["изжога","кислота","жжение"], meds:"Омепразол, Ранитидин, Алмагель"},
-{keys:["печень"], meds:"Эссенциале, Гептрал"},
-{keys:["анемия","железо","низкий гемоглобин"], meds:"Сорбифер"},
-{keys:["сон","бессонница","не сплю"], meds:"Мелатонин, Персен"},
-{keys:["иммунитет","часто болею"], meds:"Витамин C, Витамин D, Цинк"},
-{keys:["отравление"], meds:"Регидрон, Смекта, Активированный уголь"},
-{keys:["давит сердце"], meds:"Валидол, Корвалол"}
-
-];
-
-let found = [];
-
-db.forEach(item=>{
-item.keys.forEach(k=>{
-if(text.includes(k)){
-found.push(item.meds);
+if(text.includes("жкх") || text.includes("дом")){
+answer = "🏠 ЖКХ: заявки через 109 или УК";
 }
-});
-});
-
-if(found.length > 0){
-output.innerText =
-"💊 Возможные препараты:\n" +
-[...new Set(found)].join(" | ") +
-"\n\n⚠️ Это не медицинский диагноз";
-} else {
-output.innerText =
-"⚠️ Симптом не найден. Обратитесь к врачу";
+else if(text.includes("вода")){
+answer = "🚰 Возможно авария, звоните в водоканал";
 }
+else if(text.includes("свет")){
+answer = "💡 Проверьте аварийные отключения";
+}
+else if(text.includes("транспорт")){
+answer = "🚍 Используйте 2GIS или CTS";
+}
+else if(text.includes("документ")){
+answer = "📄 Оформление в ЦОН или eGov";
+}
+else if(text.includes("полиция")){
+answer = "🚓 102 — полиция";
+}
+
+output.innerText = answer;
 
 }, 700);
 
